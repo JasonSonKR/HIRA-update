@@ -1,0 +1,38 @@
+﻿{
+  "download": {
+    "base_url": "https://opendata.hira.or.kr/op/opc/olapMaterialTab3.do",
+    "months_lag": 2,
+    "target_month_override": "",
+    "headless": true
+  },
+  "paths": {
+    "inbox_directory": "./inbox",
+    "raw_directory": "./raw",
+    "archive_directory": "./archive",
+    "output_directory": "./output",
+    "log_directory": "./logs"
+  },
+  "processing": {
+    "file_extensions": [
+      ".xlsx",
+      ".xls",
+      ".html",
+      ".mhtml"
+    ],
+    "required_header_keywords": [
+      "\uc911\ubd84\ub958",
+      "\uccad\uad6c"
+    ],
+    "minimum_keyword_matches": 2,
+    "archive_inbox_files": true,
+    "write_csv": true,
+    "write_xlsx": true
+  },
+  "categories": [
+    {
+      "code": "040019",
+      "name": "\ube44\uae08\uc18d\uc131 ANCHOR",
+      "slug": "nonmetal_anchor"
+    }
+  ]
+}

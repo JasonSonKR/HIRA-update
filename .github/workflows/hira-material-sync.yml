@@ -1,0 +1,55 @@
+﻿name: HIRA Material Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 1 * * 1"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r "hira_material_automation/requirements.txt"
+          python -m playwright install chromium
+
+      - name: Run HIRA sync
+        run: |
+          python "hira_material_automation/download_hira_material.py" \
+            --config "hira_material_automation/config.json" \
+            --browser chromium \
+            --headless
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: hira-material-sync
+          path: |
+            hira_material_automation/raw
+            hira_material_automation/output
+            hira_material_automation/logs
+
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "hira_material_automation/raw" \
+                  "hira_material_automation/output" \
+                  "hira_material_automation/logs"
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: refresh HIRA material outputs"
+            git push
+          fi
