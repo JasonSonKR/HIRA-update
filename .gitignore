@@ -3,3 +3,4 @@
 *.pyo
 *.pyd
 .venv/
+hira_material_automation/logs/manual_backfill_*.log

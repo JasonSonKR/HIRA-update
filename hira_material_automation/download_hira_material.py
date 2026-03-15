@@ -229,6 +229,16 @@ def normalize_month_file(source_path: Path, monthly_output_directory: Path, proc
     )
 
 
+def is_no_data_normalization_error(exc: Exception) -> bool:
+    message = str(exc)
+    patterns = [
+        "No data rows were found under the detected header block.",
+        "Not enough rows to identify a HIRA table.",
+        "No parseable HTML table was found.",
+    ]
+    return any(pattern in message for pattern in patterns)
+
+
 def detect_output_action(previous_rows: list[dict[str, str]], current_rows: list[dict[str, str]]) -> str:
     if not previous_rows and current_rows:
         return "new"
@@ -497,10 +507,17 @@ def run_category_month(
     should_download = force or refresh_existing or not target_raw_path.exists()
     if not should_download:
         if target_raw_path.exists() and not previous_csv_path.exists():
-            result["normalized"] = normalize_month_file(target_raw_path, monthly_output_directory, processing)
-            _, current_rows = read_csv_rows(previous_csv_path)
-            result["action"] = detect_output_action(previous_rows, current_rows)
-            result["monthly_xlsx"] = str(monthly_output_directory / f"{target_raw_path.stem}__normalized.xlsx")
+            try:
+                result["normalized"] = normalize_month_file(target_raw_path, monthly_output_directory, processing)
+                _, current_rows = read_csv_rows(previous_csv_path)
+                result["action"] = detect_output_action(previous_rows, current_rows)
+                result["monthly_xlsx"] = str(monthly_output_directory / f"{target_raw_path.stem}__normalized.xlsx")
+            except ValueError as exc:
+                if is_no_data_normalization_error(exc):
+                    result["no_data"] = True
+                    result["action"] = "no_data_existing_raw"
+                else:
+                    raise
         else:
             result["action"] = "skipped_existing"
         return result
@@ -525,7 +542,14 @@ def run_category_month(
     current_csv_path = monthly_output_directory / f"{target_raw_path.stem}__normalized.csv"
     need_normalize = force or raw_status["raw_changed"] or not current_csv_path.exists()
     if need_normalize:
-        result["normalized"] = normalize_month_file(target_raw_path, monthly_output_directory, processing)
+        try:
+            result["normalized"] = normalize_month_file(target_raw_path, monthly_output_directory, processing)
+        except ValueError as exc:
+            if is_no_data_normalization_error(exc):
+                result["no_data"] = True
+                result["action"] = "no_data"
+                return result
+            raise
 
     _, current_rows = read_csv_rows(current_csv_path)
     result["action"] = detect_output_action(previous_rows, current_rows)
@@ -592,6 +616,7 @@ def main() -> int:
     refresh_existing = mode == "rolling"
     delay_seconds = float(config["download"].get("request_delay_seconds", 0))
     results: list[dict] = []
+    failures: list[dict] = []
 
     with sync_playwright() as playwright:
         browser = browser_launch(playwright, args.browser, headless)
@@ -600,19 +625,29 @@ def main() -> int:
 
         for month in months:
             for category in categories:
-                item = run_category_month(
-                    page=page,
-                    category=category,
-                    month=month,
-                    config=config,
-                    raw_directory=raw_directory,
-                    monthly_output_directory=monthly_output_directory,
-                    refresh_existing=refresh_existing,
-                    force=args.force,
-                )
-                if args.skip_process:
-                    item.pop("normalized", None)
-                results.append(item)
+                try:
+                    item = run_category_month(
+                        page=page,
+                        category=category,
+                        month=month,
+                        config=config,
+                        raw_directory=raw_directory,
+                        monthly_output_directory=monthly_output_directory,
+                        refresh_existing=refresh_existing,
+                        force=args.force,
+                    )
+                    if args.skip_process:
+                        item.pop("normalized", None)
+                    results.append(item)
+                except Exception as exc:  # noqa: BLE001
+                    failures.append(
+                        {
+                            "category_code": category.code,
+                            "category_name": category.name,
+                            "target_month": month.ym_dash,
+                            "error": str(exc),
+                        }
+                    )
                 if delay_seconds > 0:
                     time.sleep(delay_seconds)
 
@@ -629,6 +664,7 @@ def main() -> int:
                 "mode": mode,
                 "months": [month.ym_dash for month in months],
                 "processed": len(results),
+                "failures": failures,
                 "master_report": master_report,
                 "results": results,
             },
@@ -636,7 +672,7 @@ def main() -> int:
             indent=2,
         )
     )
-    return 0
+    return 1 if failures else 0
 
 
 if __name__ == "__main__":
