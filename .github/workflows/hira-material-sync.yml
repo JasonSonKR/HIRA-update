@@ -2,8 +2,31 @@
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Sync mode
+        required: false
+        default: rolling
+        type: choice
+        options:
+          - rolling
+          - backfill
+          - range
+      start_month:
+        description: Optional start month for range mode (YYYY-MM)
+        required: false
+        type: string
+      end_month:
+        description: Optional end month for range mode (YYYY-MM)
+        required: false
+        type: string
+      force:
+        description: Force refresh of existing files
+        required: false
+        default: false
+        type: boolean
   schedule:
-    - cron: "15 1 * * 1"
+    - cron: "0 21 4,14,24 * *"
 
 permissions:
   contents: write
@@ -27,11 +50,27 @@ jobs:
           python -m playwright install chromium
 
       - name: Run HIRA sync
+        shell: bash
+        env:
+          INPUT_MODE: ${{ github.event.inputs.mode }}
+          INPUT_START_MONTH: ${{ github.event.inputs.start_month }}
+          INPUT_END_MONTH: ${{ github.event.inputs.end_month }}
+          INPUT_FORCE: ${{ github.event.inputs.force }}
         run: |
-          python "hira_material_automation/download_hira_material.py" \
-            --config "hira_material_automation/config.json" \
-            --browser chromium \
-            --headless
+          args=("hira_material_automation/download_hira_material.py" "--config" "hira_material_automation/config.json" "--browser" "chromium" "--headless")
+          if [ -n "$INPUT_MODE" ]; then
+            args+=("--mode" "$INPUT_MODE")
+          fi
+          if [ -n "$INPUT_START_MONTH" ]; then
+            args+=("--start-month" "$INPUT_START_MONTH")
+          fi
+          if [ -n "$INPUT_END_MONTH" ]; then
+            args+=("--end-month" "$INPUT_END_MONTH")
+          fi
+          if [ "$INPUT_FORCE" = "true" ]; then
+            args+=("--force")
+          fi
+          python "${args[@]}"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

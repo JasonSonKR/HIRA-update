@@ -1,9 +1,16 @@
 ﻿{
   "download": {
     "base_url": "https://opendata.hira.or.kr/op/opc/olapMaterialTab3.do",
-    "months_lag": 2,
-    "target_month_override": "",
-    "headless": true
+    "headless": true,
+    "request_delay_seconds": 1.5,
+    "timeout_ms": 120000
+  },
+  "sync": {
+    "default_mode": "rolling",
+    "backfill_start_month": "2020-01",
+    "backfill_end_month": "2025-12",
+    "rolling_window_months": 2,
+    "rolling_days_of_month": [5, 15, 25]
   },
   "paths": {
     "inbox_directory": "./inbox",
@@ -30,9 +37,64 @@
   },
   "categories": [
     {
+      "code": "250099",
+      "name": "\uad00\uc808\uacbd \uc218\uc220\uc2dc \uc0ac\uc6a9\ud558\ub294 \ud65c\uc561 \uc784\uc2dc\ub300\uccb4\uc7ac",
+      "slug": "temporary_synovial_substitute"
+    },
+    {
+      "code": "040021",
+      "name": "ALL SUTURE ANCHOR",
+      "slug": "all_suture_anchor"
+    },
+    {
       "code": "040019",
       "name": "\ube44\uae08\uc18d\uc131 ANCHOR",
       "slug": "nonmetal_anchor"
+    },
+    {
+      "code": "041001",
+      "name": "\uad00\uc808\uacbd CANNULA",
+      "slug": "arthroscopy_cannula"
+    },
+    {
+      "code": "040023",
+      "name": "\uc2ed\uc790\uc778\ub300\uace0\uc815\uc6a9 \uc77c\ucc28 \uace0\uc815\uc7ac - SCREW,BUTTON \ub4f1(\uae08\uc18d\ub958)",
+      "slug": "acl_primary_fixation_metal"
+    },
+    {
+      "code": "040012",
+      "name": "\uc2ed\uc790\uc778\ub300\uace0\uc815\uc6a9-INTERFERENCE SCREW(\ud761\uc218\uc131)",
+      "slug": "acl_interference_screw_absorbable"
+    },
+    {
+      "code": "040028",
+      "name": "1\ud68c\uc6a9 \uad00\uc808 \ubd09\ud569\uc6a9 NEEDLE(\ubd84\ub9ac\ud615)",
+      "slug": "arthroscopy_suture_needle_detachable"
+    },
+    {
+      "code": "040017",
+      "name": "\ubc18\uc6d4\uc0c1\uc5f0\uace8\ubd09\ud569\uc220\uc6a9-DOUBLE ARM",
+      "slug": "meniscus_double_arm"
+    },
+    {
+      "code": "040029",
+      "name": "1\ud68c\uc6a9 \uad00\uc808 \ubd09\ud569\uc6a9 NEEDLE(\uc77c\uccb4\ud615)",
+      "slug": "arthroscopy_suture_needle_integrated"
+    },
+    {
+      "code": "040026",
+      "name": "\ubc18\uc6d4\uc0c1\uc5f0\uace8\ubd09\ud569\uc220\uc6a9-SCREW,ANCHOR",
+      "slug": "meniscus_screw_anchor"
+    },
+    {
+      "code": "900086",
+      "name": "\uc5f0\uc870\uc9c1 \uc7ac\uac74\uc6a9",
+      "slug": "soft_tissue_reconstruction"
+    },
+    {
+      "code": "900129",
+      "name": "\ucc99\ucd94\uacbd\ub9c9\uc678 \uc720\ucc29\ubc29\uc9c0\uc81c",
+      "slug": "epidural_adhesion_barrier"
     }
   ]
 }

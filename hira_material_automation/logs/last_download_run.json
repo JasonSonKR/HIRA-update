@@ -1,47 +1,33 @@
 [
   {
+    "category_code": "040021",
+    "category_name": "ALL SUTURE ANCHOR",
+    "target_month": "2026-01",
+    "raw_file": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\raw\\202601__all_suture_anchor__040021.xlsx",
+    "monthly_csv": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\monthly\\202601__all_suture_anchor__040021__normalized.csv",
+    "action": "skipped_existing",
+    "table_preview": [],
+    "no_data": false
+  },
+  {
     "category_code": "040019",
     "category_name": "비금속성 ANCHOR",
     "target_month": "2026-01",
-    "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601__nonmetal_anchor__040019.xlsx",
-    "table_preview": [
-      [
-        "",
-        "",
-        "보험자구분",
-        "건강보험",
-        "의료급여"
-      ],
-      [
-        "기간",
-        "중분류코드",
-        "중분류명",
-        "청구량",
-        "청구금액",
-        "청구량",
-        "청구금액"
-      ],
-      [
-        "2026년 01월",
-        "040019",
-        "비금속성 ANCHOR",
-        "25,458",
-        "5,640,311,240",
-        "1,021",
-        "224,685,140"
-      ]
-    ],
-    "skipped_download": false,
+    "raw_file": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\raw\\202601__nonmetal_anchor__040019.xlsx",
+    "monthly_csv": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\monthly\\202601__nonmetal_anchor__040019__normalized.csv",
+    "action": "new",
+    "table_preview": [],
+    "no_data": false,
     "normalized": {
-      "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601__nonmetal_anchor__040019.xlsx",
-      "processed_at": "2026-03-15T13:50:46",
-      "sha256": "ae64f703ff9b19618f8e4347386bc2f72203bb13a788a7cbcd21d27b125a771e",
+      "source_file": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\raw\\202601__nonmetal_anchor__040019.xlsx",
+      "processed_at": "2026-03-15T23:13:42",
+      "sha256": "1500f2e437d58b180eac7e5adeeeafbaed95b642cef822821e542a290cf78730",
       "source_kind": "xlsx",
       "row_count": 1,
       "column_count": 7,
       "matched_keywords": 2,
-      "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/202601__nonmetal_anchor__040019__normalized.csv",
-      "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/202601__nonmetal_anchor__040019__normalized.xlsx",
+      "csv_path": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\monthly\\202601__nonmetal_anchor__040019__normalized.csv",
+      "xlsx_path": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\monthly\\202601__nonmetal_anchor__040019__normalized.xlsx",
       "headers": [
         "기간",
         "중분류코드",
@@ -60,6 +46,7 @@
         "1021",
         "224685140"
       ]
-    }
+    },
+    "monthly_xlsx": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\monthly\\202601__nonmetal_anchor__040019__normalized.xlsx"
   }
 ]

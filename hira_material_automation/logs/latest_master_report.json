@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-03-15T23:13:44+09:00",
+  "category_reports": [
+    {
+      "category_code": "040021",
+      "category_name": "ALL SUTURE ANCHOR",
+      "duplicates_removed": 0,
+      "csv_path": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\master\\040021__all_suture_anchor__master.csv",
+      "xlsx_path": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\master\\040021__all_suture_anchor__master.xlsx",
+      "row_count": 1
+    },
+    {
+      "category_code": "040019",
+      "category_name": "비금속성 ANCHOR",
+      "duplicates_removed": 0,
+      "csv_path": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\master\\040019__nonmetal_anchor__master.csv",
+      "xlsx_path": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\master\\040019__nonmetal_anchor__master.xlsx",
+      "row_count": 1
+    }
+  ],
+  "all_categories": {
+    "csv_path": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\master\\all_categories__all_categories__master.csv",
+    "xlsx_path": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\master\\all_categories__all_categories__master.xlsx",
+    "row_count": 2
+  },
+  "duplicates_removed": 0,
+  "summary_workbook_path": "E:\\OneDrive - (주)아주약품\\00.메디칼 영마팀\\손재우\\HIRA-update\\hira_material_automation\\output\\master\\hira_material_summary.xlsx"
+}
