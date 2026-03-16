@@ -73,15 +73,18 @@ jobs:
           python "${args[@]}"
 
       - name: Upload artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: hira-material-sync
+          retention-days: 7
           path: |
             hira_material_automation/raw
             hira_material_automation/output
             hira_material_automation/logs
 
       - name: Commit generated files
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
