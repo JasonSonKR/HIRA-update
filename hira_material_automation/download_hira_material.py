@@ -61,6 +61,20 @@ class MonthSpec:
     ym_compact: str
 
 
+@dataclass(frozen=True)
+class PeriodSpec:
+    start_month: MonthSpec
+    end_month: MonthSpec
+
+    @property
+    def range_dash(self) -> str:
+        return f"{self.start_month.ym_dash}~{self.end_month.ym_dash}"
+
+    @property
+    def range_compact(self) -> str:
+        return f"{self.start_month.ym_compact}_{self.end_month.ym_compact}"
+
+
 def parse_year_month(value: str) -> tuple[int, int]:
     match = re.fullmatch(r"(\d{4})-(\d{2})", value.strip())
     if not match:
@@ -107,6 +121,41 @@ def rolling_months(config: dict) -> list[MonthSpec]:
     end_year, end_month = now.year, now.month
     start_year, start_month = shift_year_month(end_year, end_month, -window)
     return iterate_months(f"{start_year:04d}-{start_month:02d}", f"{end_year:04d}-{end_month:02d}")
+
+
+def make_period(start_month: str, end_month: str) -> PeriodSpec:
+    start_year, start_value = parse_year_month(start_month)
+    end_year, end_value = parse_year_month(end_month)
+    if (start_year, start_value) > (end_year, end_value):
+        raise ValueError(f"Invalid range: {start_month} is later than {end_month}.")
+    return PeriodSpec(
+        start_month=format_year_month(start_year, start_value),
+        end_month=format_year_month(end_year, end_value),
+    )
+
+
+def count_inclusive_months(start_month: str, end_month: str) -> int:
+    start_year, start_value = parse_year_month(start_month)
+    end_year, end_value = parse_year_month(end_month)
+    return (end_year - start_year) * 12 + (end_value - start_value) + 1
+
+
+def split_into_periods(start_month: str, end_month: str, max_months_per_query: int) -> list[PeriodSpec]:
+    if max_months_per_query < 1:
+        raise ValueError("max_months_per_query must be at least 1.")
+    periods: list[PeriodSpec] = []
+    current_start = start_month
+    while True:
+        remaining_months = count_inclusive_months(current_start, end_month)
+        if remaining_months <= max_months_per_query:
+            periods.append(make_period(current_start, end_month))
+            return periods
+        start_year, start_value = parse_year_month(current_start)
+        chunk_end_year, chunk_end_month = shift_year_month(start_year, start_value, max_months_per_query - 1)
+        chunk_end = f"{chunk_end_year:04d}-{chunk_end_month:02d}"
+        periods.append(make_period(current_start, chunk_end))
+        next_year, next_month = shift_year_month(chunk_end_year, chunk_end_month, 1)
+        current_start = f"{next_year:04d}-{next_month:02d}"
 
 
 def load_categories(config: dict) -> list[Category]:
@@ -175,15 +224,15 @@ def reset_page(page) -> None:
         pass
 
 
-def query_page(page, category: Category, month: MonthSpec, config: dict) -> list[list[str]]:
+def query_page(page, category: Category, period: PeriodSpec, config: dict) -> list[list[str]]:
     timeout_ms = int(config["download"].get("timeout_ms", 120000))
     page.goto(config["download"]["base_url"], wait_until="networkidle", timeout=timeout_ms)
-    page.wait_for_selector("#mcatMdivCd", timeout=timeout_ms)
-    page.wait_for_selector("#mcatMdivCdNm", timeout=timeout_ms)
-    page.wait_for_selector("#searchWrd", timeout=timeout_ms)
-    page.wait_for_selector("#sYm", timeout=timeout_ms)
-    page.wait_for_selector("#eYm", timeout=timeout_ms)
-    page.wait_for_selector("#searchBtn", timeout=timeout_ms)
+    page.wait_for_selector("#mcatMdivCd", state="attached", timeout=timeout_ms)
+    page.wait_for_selector("#mcatMdivCdNm", state="attached", timeout=timeout_ms)
+    page.wait_for_selector("#searchWrd", state="attached", timeout=timeout_ms)
+    page.wait_for_selector("#sYm", state="attached", timeout=timeout_ms)
+    page.wait_for_selector("#eYm", state="attached", timeout=timeout_ms)
+    page.wait_for_selector("#searchBtn", state="attached", timeout=timeout_ms)
     page.evaluate(
         """({code, name}) => {
             document.querySelector('#mcatMdivCd').value = code;
@@ -196,8 +245,8 @@ def query_page(page, category: Category, month: MonthSpec, config: dict) -> list
         }""",
         {"code": category.code, "name": category.name},
     )
-    page.fill("#sYm", month.ym_dash)
-    page.fill("#eYm", month.ym_dash)
+    page.fill("#sYm", period.start_month.ym_dash)
+    page.fill("#eYm", period.end_month.ym_dash)
     page.locator("#searchBtn").click()
     page.wait_for_load_state("networkidle", timeout=timeout_ms)
     page.wait_for_timeout(1000)
@@ -493,10 +542,10 @@ def rebuild_master_datasets(monthly_output_directory: Path, master_output_direct
     }
 
 
-def run_category_month(
+def run_category_period(
     page,
     category: Category,
-    month: MonthSpec,
+    period: PeriodSpec,
     config: dict,
     raw_directory: Path,
     monthly_output_directory: Path,
@@ -507,7 +556,7 @@ def run_category_month(
     timeout_ms = int(config["download"].get("timeout_ms", 120000))
     max_attempts = max(1, int(config["download"].get("max_attempts", 3)))
     retry_backoff_seconds = float(config["download"].get("retry_backoff_seconds", 4.0))
-    file_name = f"{month.ym_compact}__{category.slug}__{category.code}.xlsx"
+    file_name = f"{period.range_compact}__{category.slug}__{category.code}.xlsx"
     target_raw_path = raw_directory / file_name
     previous_csv_path = monthly_output_directory / f"{target_raw_path.stem}__normalized.csv"
     _, previous_rows = read_csv_rows(previous_csv_path)
@@ -515,7 +564,7 @@ def run_category_month(
     result = {
         "category_code": category.code,
         "category_name": category.name,
-        "target_month": month.ym_dash,
+        "target_range": period.range_dash,
         "raw_file": str(target_raw_path),
         "monthly_csv": str(previous_csv_path),
         "action": "skipped",
@@ -545,7 +594,7 @@ def run_category_month(
     for attempt in range(1, max_attempts + 1):
         result["attempts"] = attempt
         try:
-            preview_rows = query_page(page, category, month, config)
+            preview_rows = query_page(page, category, period, config)
             result["table_preview"] = preview_rows
 
             if page_has_block_notice(page):
@@ -621,19 +670,34 @@ def build_argument_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def select_months(config: dict, mode: str, start_month: str, end_month: str) -> list[MonthSpec]:
+def select_periods(config: dict, mode: str, start_month: str, end_month: str) -> list[PeriodSpec]:
+    max_months_per_query = int(config["sync"].get("max_months_per_query", 36))
+
     if start_month and end_month:
-        return iterate_months(start_month, end_month)
+        return split_into_periods(start_month, end_month, max_months_per_query)
+
     if mode == "backfill":
-        return iterate_months(config["sync"]["backfill_start_month"], config["sync"]["backfill_end_month"])
+        return split_into_periods(
+            config["sync"]["backfill_start_month"],
+            config["sync"]["backfill_end_month"],
+            max_months_per_query,
+        )
+
     if mode == "range":
         raise ValueError("Range mode requires both --start-month and --end-month.")
-    months = rolling_months(config)
+
+    rolling_window = int(config["sync"].get("rolling_window_months", 2))
+    now = today_kst()
+    end_year, end_month_value = now.year, now.month
+    start_year, start_month_value = shift_year_month(end_year, end_month_value, -rolling_window)
+    rolling_start = f"{start_year:04d}-{start_month_value:02d}"
+    rolling_end = f"{end_year:04d}-{end_month_value:02d}"
     rolling_min_month = str(config["sync"].get("rolling_min_month", "")).strip()
-    if rolling_min_month:
-        floor_key = parse_year_month(rolling_min_month)
-        months = [month for month in months if month_spec_key(month) >= floor_key]
-    return months
+    if rolling_min_month and parse_year_month(rolling_end) < parse_year_month(rolling_min_month):
+        return []
+    if rolling_min_month and parse_year_month(rolling_start) < parse_year_month(rolling_min_month):
+        rolling_start = rolling_min_month
+    return [make_period(rolling_start, rolling_end)]
 
 
 def main() -> int:
@@ -644,10 +708,10 @@ def main() -> int:
     config = resolve_config_paths(config, config_root)
 
     mode = args.mode or config["sync"].get("default_mode", "rolling")
-    months = select_months(config, mode, args.start_month.strip(), args.end_month.strip())
+    periods = select_periods(config, mode, args.start_month.strip(), args.end_month.strip())
     categories = filter_categories(load_categories(config), args.category_code or [])
-    if not months:
-        print("No target months were selected.")
+    if not periods:
+        print("No target periods were selected.")
         return 0
     if not categories:
         print("No categories were selected.")
@@ -678,14 +742,14 @@ def main() -> int:
         browser = browser_launch(playwright, args.browser, headless)
         context = browser.new_context(locale="ko-KR", accept_downloads=True)
 
-        for month in months:
+        for period in periods:
             for category in categories:
                 page = context.new_page()
                 try:
-                    item = run_category_month(
+                    item = run_category_period(
                         page=page,
                         category=category,
-                        month=month,
+                        period=period,
                         config=config,
                         raw_directory=raw_directory,
                         monthly_output_directory=monthly_output_directory,
@@ -700,7 +764,7 @@ def main() -> int:
                         {
                             "category_code": category.code,
                             "category_name": category.name,
-                            "target_month": month.ym_dash,
+                            "target_range": period.range_dash,
                             "error": str(exc),
                         }
                     )
@@ -715,7 +779,7 @@ def main() -> int:
     master_report = rebuild_master_datasets(monthly_output_directory, master_output_directory, categories)
     run_summary = {
         "mode": mode,
-        "months": [month.ym_dash for month in months],
+        "periods": [period.range_dash for period in periods],
         "processed": len(results),
         "failure_count": len(failures),
         "failures": failures,
