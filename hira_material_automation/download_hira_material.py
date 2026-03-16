@@ -178,6 +178,12 @@ def reset_page(page) -> None:
 def query_page(page, category: Category, month: MonthSpec, config: dict) -> list[list[str]]:
     timeout_ms = int(config["download"].get("timeout_ms", 120000))
     page.goto(config["download"]["base_url"], wait_until="networkidle", timeout=timeout_ms)
+    page.wait_for_selector("#mcatMdivCd", timeout=timeout_ms)
+    page.wait_for_selector("#mcatMdivCdNm", timeout=timeout_ms)
+    page.wait_for_selector("#searchWrd", timeout=timeout_ms)
+    page.wait_for_selector("#sYm", timeout=timeout_ms)
+    page.wait_for_selector("#eYm", timeout=timeout_ms)
+    page.wait_for_selector("#searchBtn", timeout=timeout_ms)
     page.evaluate(
         """({code, name}) => {
             document.querySelector('#mcatMdivCd').value = code;
