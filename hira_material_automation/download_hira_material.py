@@ -22,8 +22,6 @@ from process_hira_mhtml_xls import (
     normalize_hira_export,
     resolve_config_paths,
     sha256sum,
-    write_csv,
-    write_normalized_xlsx,
 )
 
 try:
@@ -31,6 +29,11 @@ try:
 except Exception:
     KST = timezone(timedelta(hours=9))
 NO_DATA_TEXT = "데이터가 없습니다"
+BLOCKED_TEXT_PATTERNS = [
+    "비정상 접속",
+    "30분 후",
+    "자동화된 접근",
+]
 MASTER_HEADERS = [
     "기간",
     "연도",
@@ -155,6 +158,21 @@ def preview_has_no_data(rows: list[list[str]]) -> bool:
     if NO_DATA_TEXT in flattened:
         return True
     return len(rows) < 3
+
+
+def page_has_block_notice(page) -> bool:
+    try:
+        body_text = page.locator("body").inner_text(timeout=5000)
+    except Exception:  # noqa: BLE001
+        return False
+    return any(pattern in body_text for pattern in BLOCKED_TEXT_PATTERNS)
+
+
+def reset_page(page) -> None:
+    try:
+        page.goto("about:blank", wait_until="load", timeout=10000)
+    except Exception:  # noqa: BLE001
+        pass
 
 
 def query_page(page, category: Category, month: MonthSpec, config: dict) -> list[list[str]]:
@@ -347,27 +365,6 @@ def load_category_master_rows(monthly_output_directory: Path, category: Category
     return transformed_rows, duplicates_removed
 
 
-def write_master_outputs(master_output_directory: Path, category: Category, rows: list[dict[str, object]]) -> dict:
-    ensure_directory(master_output_directory)
-    base_name = f"{category.code}__{category.slug}__master"
-    csv_path = master_output_directory / f"{base_name}.csv"
-    xlsx_path = master_output_directory / f"{base_name}.xlsx"
-    row_values = [normalize_master_row(row) for row in rows]
-    write_csv(csv_path, MASTER_HEADERS, row_values)
-    write_normalized_xlsx(
-        xlsx_path,
-        MASTER_HEADERS,
-        row_values,
-        {
-            "generated_at": today_kst().isoformat(timespec="seconds"),
-            "category_code": category.code,
-            "category_name": category.name,
-            "row_count": len(row_values),
-        },
-    )
-    return {"csv_path": str(csv_path), "xlsx_path": str(xlsx_path), "row_count": len(row_values)}
-
-
 def make_sheet_name(base_name: str, used_names: set[str]) -> str:
     cleaned = re.sub(r"[\\/*?:\[\]]", "_", base_name).strip() or "sheet"
     candidate = cleaned[:31]
@@ -411,16 +408,27 @@ def write_rows_to_sheet(sheet, rows: list[dict[str, object]]) -> None:
     autofit_columns(sheet)
 
 
-def create_summary_workbook(master_output_directory: Path, category_rows: list[tuple[Category, list[dict[str, object]]]], all_rows: list[dict[str, object]]) -> str:
+def clear_master_output_directory(master_output_directory: Path) -> None:
+    ensure_directory(master_output_directory)
+    for path in master_output_directory.iterdir():
+        if path.name == ".gitkeep":
+            continue
+        if path.is_file():
+            path.unlink()
+
+
+def create_summary_workbook(
+    master_output_directory: Path,
+    category_sheets: list[tuple[str, list[dict[str, object]]]],
+    all_rows: list[dict[str, object]],
+) -> str:
     workbook_path = master_output_directory / "hira_material_summary.xlsx"
     workbook = Workbook()
     summary_sheet = workbook.active
     summary_sheet.title = "통합"
     write_rows_to_sheet(summary_sheet, all_rows)
 
-    used_names = {"통합"}
-    for category, rows in category_rows:
-        sheet_name = make_sheet_name(f"{category.code}_{category.name}", used_names)
+    for sheet_name, rows in category_sheets:
         sheet = workbook.create_sheet(title=sheet_name)
         write_rows_to_sheet(sheet, rows)
 
@@ -429,26 +437,29 @@ def create_summary_workbook(master_output_directory: Path, category_rows: list[t
 
 
 def rebuild_master_datasets(monthly_output_directory: Path, master_output_directory: Path, categories: list[Category]) -> dict:
+    clear_master_output_directory(master_output_directory)
     category_reports: list[dict] = []
-    category_rows: list[tuple[Category, list[dict[str, object]]]] = []
+    category_sheets: list[tuple[str, list[dict[str, object]]]] = []
     all_rows: list[dict[str, object]] = []
     total_duplicates_removed = 0
+    used_sheet_names = {"통합"}
 
     for category in categories:
         rows, duplicates_removed = load_category_master_rows(monthly_output_directory, category)
         total_duplicates_removed += duplicates_removed
         if not rows:
             continue
-        category_output = write_master_outputs(master_output_directory, category, rows)
+        sheet_name = make_sheet_name(f"{category.code}_{category.name}", used_sheet_names)
         category_reports.append(
             {
                 "category_code": category.code,
                 "category_name": category.name,
+                "sheet_name": sheet_name,
                 "duplicates_removed": duplicates_removed,
-                **category_output,
+                "row_count": len(rows),
             }
         )
-        category_rows.append((category, rows))
+        category_sheets.append((sheet_name, rows))
         all_rows.extend(rows)
 
     keyed_all_rows: dict[tuple[str, str], dict[str, object]] = {}
@@ -464,12 +475,8 @@ def rebuild_master_datasets(monthly_output_directory: Path, master_output_direct
     combined_report = {}
     summary_workbook_path = ""
     if combined_rows:
-        combined_report = write_master_outputs(
-            master_output_directory,
-            Category(code="all_categories", name="all_categories", slug="all_categories"),
-            combined_rows,
-        )
-        summary_workbook_path = create_summary_workbook(master_output_directory, category_rows, combined_rows)
+        combined_report = {"row_count": len(combined_rows)}
+        summary_workbook_path = create_summary_workbook(master_output_directory, category_sheets, combined_rows)
 
     return {
         "generated_at": today_kst().isoformat(timespec="seconds"),
@@ -492,6 +499,8 @@ def run_category_month(
 ) -> dict:
     processing = config["processing"]
     timeout_ms = int(config["download"].get("timeout_ms", 120000))
+    max_attempts = max(1, int(config["download"].get("max_attempts", 3)))
+    retry_backoff_seconds = float(config["download"].get("retry_backoff_seconds", 4.0))
     file_name = f"{month.ym_compact}__{category.slug}__{category.code}.xlsx"
     target_raw_path = raw_directory / file_name
     previous_csv_path = monthly_output_directory / f"{target_raw_path.stem}__normalized.csv"
@@ -506,6 +515,7 @@ def run_category_month(
         "action": "skipped",
         "table_preview": [],
         "no_data": False,
+        "attempts": 0,
     }
 
     should_download = force or refresh_existing or not target_raw_path.exists()
@@ -526,18 +536,46 @@ def run_category_month(
             result["action"] = "skipped_existing"
         return result
 
-    preview_rows = query_page(page, category, month, config)
-    result["table_preview"] = preview_rows
-    if preview_has_no_data(preview_rows):
-        result["no_data"] = True
-        result["action"] = "no_data_keep_existing" if target_raw_path.exists() else "no_data"
-        return result
+    for attempt in range(1, max_attempts + 1):
+        result["attempts"] = attempt
+        try:
+            preview_rows = query_page(page, category, month, config)
+            result["table_preview"] = preview_rows
 
-    try:
-        temp_path = download_to_temporary_file(page, target_raw_path, timeout_ms)
-    except PlaywrightTimeoutError:
-        result["no_data"] = True
-        result["action"] = "download_timeout_keep_existing" if target_raw_path.exists() else "download_timeout"
+            if page_has_block_notice(page):
+                result["action"] = "blocked_keep_existing" if target_raw_path.exists() else "blocked"
+                result["warning"] = "HIRA access block notice was detected."
+                if attempt < max_attempts:
+                    reset_page(page)
+                    time.sleep(retry_backoff_seconds * attempt)
+                    continue
+                return result
+
+            if preview_has_no_data(preview_rows):
+                result["no_data"] = True
+                result["action"] = "no_data_keep_existing" if target_raw_path.exists() else "no_data"
+                return result
+
+            try:
+                temp_path = download_to_temporary_file(page, target_raw_path, timeout_ms)
+            except PlaywrightTimeoutError:
+                result["action"] = "download_timeout_keep_existing" if target_raw_path.exists() else "download_timeout"
+                result["warning"] = "The export download timed out."
+                if attempt < max_attempts:
+                    reset_page(page)
+                    time.sleep(retry_backoff_seconds * attempt)
+                    continue
+                return result
+            break
+        except PlaywrightTimeoutError:
+            result["action"] = "query_timeout_keep_existing" if target_raw_path.exists() else "query_timeout"
+            result["warning"] = "The HIRA page query timed out."
+            if attempt < max_attempts:
+                reset_page(page)
+                time.sleep(retry_backoff_seconds * attempt)
+                continue
+            return result
+    else:
         return result
 
     raw_status = replace_raw_file(temp_path, target_raw_path)
@@ -633,10 +671,10 @@ def main() -> int:
     with sync_playwright() as playwright:
         browser = browser_launch(playwright, args.browser, headless)
         context = browser.new_context(locale="ko-KR", accept_downloads=True)
-        page = context.new_page()
 
         for month in months:
             for category in categories:
+                page = context.new_page()
                 try:
                     item = run_category_month(
                         page=page,
@@ -660,6 +698,8 @@ def main() -> int:
                             "error": str(exc),
                         }
                     )
+                finally:
+                    page.close()
                 if delay_seconds > 0:
                     time.sleep(delay_seconds)
 
@@ -667,24 +707,22 @@ def main() -> int:
         browser.close()
 
     master_report = rebuild_master_datasets(monthly_output_directory, master_output_directory, categories)
-    run_log_path.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
+    run_summary = {
+        "mode": mode,
+        "months": [month.ym_dash for month in months],
+        "processed": len(results),
+        "failure_count": len(failures),
+        "failures": failures,
+        "master_report": master_report,
+        "results": results,
+    }
+    run_log_path.write_text(json.dumps(run_summary, ensure_ascii=False, indent=2), encoding="utf-8")
     master_report_path.write_text(json.dumps(master_report, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(
-        json.dumps(
-            {
-                "mode": mode,
-                "months": [month.ym_dash for month in months],
-                "processed": len(results),
-                "failures": failures,
-                "master_report": master_report,
-                "results": results,
-            },
-            ensure_ascii=False,
-            indent=2,
-        )
+        json.dumps(run_summary, ensure_ascii=False, indent=2)
     )
-    return 1 if failures else 0
+    return 1 if failures and not results else 0
 
 
 if __name__ == "__main__":

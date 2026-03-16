@@ -2,8 +2,10 @@
   "download": {
     "base_url": "https://opendata.hira.or.kr/op/opc/olapMaterialTab3.do",
     "headless": true,
-    "request_delay_seconds": 1.5,
-    "timeout_ms": 120000
+    "request_delay_seconds": 2.0,
+    "timeout_ms": 120000,
+    "max_attempts": 3,
+    "retry_backoff_seconds": 4.0
   },
   "sync": {
     "default_mode": "rolling",
