@@ -37,8 +37,8 @@ This project now uses three separate execution tracks.
 
 ## Output structure
 
-- `raw`: original HIRA downloads, one file per category per month
-- `output/monthly`: normalized monthly CSV/XLSX files from the raw HIRA files
+- `raw`: original HIRA downloads, one file per category per queried range
+- `output/monthly`: normalized CSV/XLSX files produced from each range download
 - `output/master`: transformed master outputs
 - `output/master/hira_material_summary.xlsx`: one workbook with a `통합` sheet and one sheet per category
 - `logs/last_download_run.json`: detailed run history
@@ -71,9 +71,16 @@ Task Scheduler registration:
 powershell -ExecutionPolicy Bypass -File ".\hira_material_automation\register_hira_material_task.ps1"
 ```
 
+Pull the latest GitHub results back to the local PC:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\hira_material_automation\sync_hira_results_from_github.ps1"
+```
+
 ## GitHub Actions
 
 - `HIRA Backfill 2020-2022`: one-time manual backfill for 2020-2022
 - `HIRA Backfill 2023-2025`: one-time manual backfill for 2023-2025
 - `HIRA Material Rolling Sync`: ongoing rolling sync for 2026 and later
 - All workflows upload logs and partial outputs even if the run fails
+- Run the local GitHub sync script after a workflow if you want the same files copied into this PC
