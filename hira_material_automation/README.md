@@ -1,9 +1,16 @@
 ﻿# HIRA Material Automation
 
-This project supports two execution modes.
+This project now uses three separate execution tracks.
 
-1. Off-PC mode via GitHub Actions.
-2. Local fallback via Windows Task Scheduler.
+1. `HIRA Backfill 2020-2022`
+2. `HIRA Backfill 2023-2025`
+3. `HIRA Material Rolling Sync`
+
+## Why the flows are split
+
+- Backfill is safer in smaller year blocks.
+- Rolling stays focused on 2026 and later.
+- Master files are rebuilt from monthly files every run, so overlap does not accumulate.
 
 ## Included categories
 
@@ -20,13 +27,13 @@ This project supports two execution modes.
 - `900086` 연조직 재건용
 - `900129` 척추경막외 유착방지제
 
-## Sync rules
+## Range rules
 
-- Initial one-time backfill target: `2020-01` to `2025-12`
-- Rolling refresh window: `current - 2 months` through `current month`
-- Rolling schedule target: the 5th, 15th, and 25th at `06:00` Asia/Seoul
-- Existing monthly files are overwritten in place when HIRA values change
-- Master files are rebuilt from monthly files every run, so values are not accumulated twice
+- Backfill batch 1: `2020-01` to `2022-12`
+- Backfill batch 2: `2023-01` to `2025-12`
+- Rolling window: `current - 2 months` through `current month`
+- Rolling floor month: `2026-01`
+- Rolling schedule: the 5th, 15th, and 25th at `06:00` Asia/Seoul
 
 ## Output structure
 
@@ -41,9 +48,10 @@ This project supports two execution modes.
 
 - `-` values are converted to numeric `0`
 - `연도` is added as a separate column
-- `건강보험` and `의료급여` rows are kept separately and also rolled up into `청구량 합계` and `청구금액 합계`
+- `건강보험` and `의료급여` are kept separately and also rolled up into `청구량 합계` and `청구금액 합계`
+- Master files are deduplicated by `기간 + 중분류코드`
 
-## Common commands
+## Local commands
 
 Rolling refresh:
 
@@ -51,16 +59,10 @@ Rolling refresh:
 powershell -ExecutionPolicy Bypass -File ".\hira_material_automation\run_hira_material_sync.ps1" -Mode rolling
 ```
 
-One-time backfill:
+Manual range run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File ".\hira_material_automation\run_hira_material_sync.ps1" -Mode backfill
-```
-
-Custom month range:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File ".\hira_material_automation\run_hira_material_sync.ps1" -Mode range -StartMonth 2024-01 -EndMonth 2024-12
+powershell -ExecutionPolicy Bypass -File ".\hira_material_automation\run_hira_material_sync.ps1" -Mode range -StartMonth 2020-01 -EndMonth 2022-12
 ```
 
 Task Scheduler registration:
@@ -71,6 +73,7 @@ powershell -ExecutionPolicy Bypass -File ".\hira_material_automation\register_hi
 
 ## GitHub Actions
 
-- Scheduled run: every month on the 5th, 15th, and 25th at `06:00` Asia/Seoul
-- Manual run: choose `rolling`, `backfill`, or `range`
-- Workflow file: `.github/workflows/hira-material-sync.yml`
+- `HIRA Backfill 2020-2022`: one-time manual backfill for 2020-2022
+- `HIRA Backfill 2023-2025`: one-time manual backfill for 2023-2025
+- `HIRA Material Rolling Sync`: ongoing rolling sync for 2026 and later
+- All workflows upload logs and partial outputs even if the run fails

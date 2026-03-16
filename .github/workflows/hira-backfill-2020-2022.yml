@@ -1,4 +1,4 @@
-﻿name: HIRA Material Rolling Sync
+﻿name: HIRA Backfill 2020-2022
 
 on:
   workflow_dispatch:
@@ -8,14 +8,12 @@ on:
         required: false
         default: false
         type: boolean
-  schedule:
-    - cron: "0 21 4,14,24 * *"
 
 permissions:
   contents: write
 
 jobs:
-  rolling_sync:
+  backfill_2020_2022:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,12 +30,12 @@ jobs:
           pip install -r "hira_material_automation/requirements.txt"
           python -m playwright install chromium
 
-      - name: Run rolling sync
+      - name: Run 2020-2022 backfill
         shell: bash
         env:
           INPUT_FORCE: ${{ github.event.inputs.force }}
         run: |
-          args=("hira_material_automation/download_hira_material.py" "--config" "hira_material_automation/config.json" "--browser" "chromium" "--headless" "--mode" "rolling")
+          args=("hira_material_automation/download_hira_material.py" "--config" "hira_material_automation/config.json" "--browser" "chromium" "--headless" "--mode" "range" "--start-month" "2020-01" "--end-month" "2022-12")
           if [ "$INPUT_FORCE" = "true" ]; then
             args+=("--force")
           fi
@@ -47,7 +45,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: hira-rolling-sync
+          name: hira-backfill-2020-2022
           retention-days: 7
           path: |
             hira_material_automation/raw

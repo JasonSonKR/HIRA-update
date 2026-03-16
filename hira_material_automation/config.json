@@ -10,7 +10,8 @@
     "backfill_start_month": "2020-01",
     "backfill_end_month": "2025-12",
     "rolling_window_months": 2,
-    "rolling_days_of_month": [5, 15, 25]
+    "rolling_days_of_month": [5, 15, 25],
+    "rolling_min_month": "2026-01"
   },
   "paths": {
     "inbox_directory": "./inbox",

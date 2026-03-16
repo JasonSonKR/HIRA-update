@@ -90,6 +90,10 @@ def iterate_months(start_month: str, end_month: str) -> list[MonthSpec]:
     return months
 
 
+def month_spec_key(month: MonthSpec) -> tuple[int, int]:
+    return parse_year_month(month.ym_dash)
+
+
 def today_kst() -> datetime:
     return datetime.now(KST)
 
@@ -580,7 +584,12 @@ def select_months(config: dict, mode: str, start_month: str, end_month: str) -> 
         return iterate_months(config["sync"]["backfill_start_month"], config["sync"]["backfill_end_month"])
     if mode == "range":
         raise ValueError("Range mode requires both --start-month and --end-month.")
-    return rolling_months(config)
+    months = rolling_months(config)
+    rolling_min_month = str(config["sync"].get("rolling_min_month", "")).strip()
+    if rolling_min_month:
+        floor_key = parse_year_month(rolling_min_month)
+        months = [month for month in months if month_spec_key(month) >= floor_key]
+    return months
 
 
 def main() -> int:
@@ -593,6 +602,9 @@ def main() -> int:
     mode = args.mode or config["sync"].get("default_mode", "rolling")
     months = select_months(config, mode, args.start_month.strip(), args.end_month.strip())
     categories = filter_categories(load_categories(config), args.category_code or [])
+    if not months:
+        print("No target months were selected.")
+        return 0
     if not categories:
         print("No categories were selected.")
         return 1
