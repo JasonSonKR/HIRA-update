@@ -27,7 +27,9 @@ def github_download(download_url: str, target_path: Path) -> None:
     request = Request(download_url, headers={"User-Agent": "Codex-HIRA-Sync"})
     with urlopen(request) as response:
         target_path.parent.mkdir(parents=True, exist_ok=True)
-        target_path.write_bytes(response.read())
+        temp_path = target_path.with_name(f"tmp__{target_path.name}")
+        temp_path.write_bytes(response.read())
+        temp_path.replace(target_path)
 
 
 def list_repo_files(owner: str, repo: str, branch: str, remote_path: str) -> list[dict]:
