@@ -34,6 +34,9 @@ BLOCKED_TEXT_PATTERNS = [
     "30분 후",
     "자동화된 접근",
 ]
+RANGE_FILE_PATTERN = re.compile(
+    r"^(?P<start>\d{6})_(?P<end>\d{6})__(?P<slug>.+)__(?P<code>\d+?)(?:__normalized)?$"
+)
 MASTER_HEADERS = [
     "기간",
     "연도",
@@ -75,6 +78,14 @@ class PeriodSpec:
         return f"{self.start_month.ym_compact}_{self.end_month.ym_compact}"
 
 
+@dataclass(frozen=True)
+class RangeFileInfo:
+    path: Path
+    start_month: str
+    end_month: str
+    category_code: str
+
+
 def parse_year_month(value: str) -> tuple[int, int]:
     match = re.fullmatch(r"(\d{4})-(\d{2})", value.strip())
     if not match:
@@ -88,6 +99,12 @@ def parse_year_month(value: str) -> tuple[int, int]:
 
 def format_year_month(year: int, month: int) -> MonthSpec:
     return MonthSpec(ym_dash=f"{year:04d}-{month:02d}", ym_compact=f"{year:04d}{month:02d}")
+
+
+def compact_to_dash(value: str) -> str:
+    if len(value) != 6 or not value.isdigit():
+        raise ValueError(f"Invalid compact month format: {value}. Expected YYYYMM.")
+    return f"{value[:4]}-{value[4:]}"
 
 
 def shift_year_month(year: int, month: int, delta_months: int) -> tuple[int, int]:
@@ -156,6 +173,63 @@ def split_into_periods(start_month: str, end_month: str, max_months_per_query: i
         periods.append(make_period(current_start, chunk_end))
         next_year, next_month = shift_year_month(chunk_end_year, chunk_end_month, 1)
         current_start = f"{next_year:04d}-{next_month:02d}"
+
+
+def parse_range_file_info(path: Path) -> RangeFileInfo | None:
+    match = RANGE_FILE_PATTERN.fullmatch(path.stem)
+    if not match:
+        return None
+    return RangeFileInfo(
+        path=path,
+        start_month=compact_to_dash(match.group("start")),
+        end_month=compact_to_dash(match.group("end")),
+        category_code=match.group("code"),
+    )
+
+
+def periods_overlap(start_month: str, end_month: str, other_start_month: str, other_end_month: str) -> bool:
+    start_key = parse_year_month(start_month)
+    end_key = parse_year_month(end_month)
+    other_start_key = parse_year_month(other_start_month)
+    other_end_key = parse_year_month(other_end_month)
+    return not (end_key < other_start_key or other_end_key < start_key)
+
+
+def purge_overlapping_outputs(
+    raw_directory: Path,
+    monthly_output_directory: Path,
+    categories: list[Category],
+    periods: list[PeriodSpec],
+) -> dict[str, list[str]]:
+    category_codes = {category.code for category in categories}
+    deleted_raw_files: list[str] = []
+    deleted_monthly_files: list[str] = []
+
+    def purge_directory(directory: Path, bucket: list[str]) -> None:
+        for path in directory.iterdir():
+            if not path.is_file() or path.name == ".gitkeep":
+                continue
+            info = parse_range_file_info(path)
+            if info is None or info.category_code not in category_codes:
+                continue
+            if any(
+                periods_overlap(
+                    info.start_month,
+                    info.end_month,
+                    period.start_month.ym_dash,
+                    period.end_month.ym_dash,
+                )
+                for period in periods
+            ):
+                path.unlink()
+                bucket.append(str(path))
+
+    purge_directory(raw_directory, deleted_raw_files)
+    purge_directory(monthly_output_directory, deleted_monthly_files)
+    return {
+        "deleted_raw_files": deleted_raw_files,
+        "deleted_monthly_files": deleted_monthly_files,
+    }
 
 
 def load_categories(config: dict) -> list[Category]:
@@ -686,11 +760,15 @@ def select_periods(config: dict, mode: str, start_month: str, end_month: str) ->
     if mode == "range":
         raise ValueError("Range mode requires both --start-month and --end-month.")
 
-    rolling_window = int(config["sync"].get("rolling_window_months", 2))
     now = today_kst()
     end_year, end_month_value = now.year, now.month
-    start_year, start_month_value = shift_year_month(end_year, end_month_value, -rolling_window)
-    rolling_start = f"{start_year:04d}-{start_month_value:02d}"
+    rolling_strategy = str(config["sync"].get("rolling_strategy", "window")).strip().lower()
+    if rolling_strategy == "current_year_replace":
+        rolling_start = f"{end_year:04d}-01"
+    else:
+        rolling_window = int(config["sync"].get("rolling_window_months", 2))
+        start_year, start_month_value = shift_year_month(end_year, end_month_value, -rolling_window)
+        rolling_start = f"{start_year:04d}-{start_month_value:02d}"
     rolling_end = f"{end_year:04d}-{end_month_value:02d}"
     rolling_min_month = str(config["sync"].get("rolling_min_month", "")).strip()
     if rolling_min_month and parse_year_month(rolling_end) < parse_year_month(rolling_min_month):
@@ -737,6 +815,10 @@ def main() -> int:
     delay_seconds = float(config["download"].get("request_delay_seconds", 0))
     results: list[dict] = []
     failures: list[dict] = []
+    deleted_outputs = {"deleted_raw_files": [], "deleted_monthly_files": []}
+
+    if mode == "rolling" and str(config["sync"].get("rolling_strategy", "window")).strip().lower() == "current_year_replace":
+        deleted_outputs = purge_overlapping_outputs(raw_directory, monthly_output_directory, categories, periods)
 
     with sync_playwright() as playwright:
         browser = browser_launch(playwright, args.browser, headless)
@@ -783,6 +865,7 @@ def main() -> int:
         "processed": len(results),
         "failure_count": len(failures),
         "failures": failures,
+        "deleted_outputs": deleted_outputs,
         "master_report": master_report,
         "results": results,
     }

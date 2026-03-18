@@ -31,8 +31,10 @@ This project now uses three separate execution tracks.
 
 - Backfill batch 1: `2020-01` to `2022-12`
 - Backfill batch 2: `2023-01` to `2025-12`
-- Rolling window: `current - 2 months` through `current month`
+- Rolling strategy: `current_year_replace`
+- Rolling refresh range: `current year January` through `current month`
 - Rolling floor month: `2026-01`
+- Before every rolling run, files that overlap the target year are deleted and downloaded again
 - Rolling schedule: the 5th, 15th, and 25th at `06:00` Asia/Seoul
 
 ## Output structure
@@ -50,6 +52,7 @@ This project now uses three separate execution tracks.
 - `연도` is added as a separate column
 - `건강보험` and `의료급여` are kept separately and also rolled up into `청구량 합계` and `청구금액 합계`
 - Master files are deduplicated by `기간 + 중분류코드`
+- Rolling refresh replaces the entire current-year dataset so HIRA revisions are picked up cleanly
 
 ## Local commands
 
