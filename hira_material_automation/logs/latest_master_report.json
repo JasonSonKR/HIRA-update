@@ -1,65 +1,65 @@
 {
-  "generated_at": "2026-03-17T02:47:31+09:00",
+  "generated_at": "2026-03-25T07:13:23+09:00",
   "category_reports": [
     {
       "category_code": "250099",
       "category_name": "관절경 수술시 사용하는 활액 임시대체재",
       "sheet_name": "250099_관절경 수술시 사용하는 활액 임시대체재",
       "duplicates_removed": 0,
-      "row_count": 50
+      "row_count": 52
     },
     {
       "category_code": "040021",
       "category_name": "ALL SUTURE ANCHOR",
       "sheet_name": "040021_ALL SUTURE ANCHOR",
       "duplicates_removed": 0,
-      "row_count": 72
+      "row_count": 74
     },
     {
       "category_code": "040019",
       "category_name": "비금속성 ANCHOR",
       "sheet_name": "040019_비금속성 ANCHOR",
       "duplicates_removed": 0,
-      "row_count": 72
+      "row_count": 74
     },
     {
       "category_code": "041001",
       "category_name": "관절경 CANNULA",
       "sheet_name": "041001_관절경 CANNULA",
       "duplicates_removed": 0,
-      "row_count": 72
+      "row_count": 74
     },
     {
       "category_code": "040023",
       "category_name": "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
       "sheet_name": "040023_십자인대고정용 일차 고정재 - SCREW,B",
       "duplicates_removed": 0,
-      "row_count": 72
+      "row_count": 74
     },
     {
       "category_code": "040012",
       "category_name": "십자인대고정용-INTERFERENCE SCREW(흡수성)",
       "sheet_name": "040012_십자인대고정용-INTERFERENCE SCR",
       "duplicates_removed": 0,
-      "row_count": 72
+      "row_count": 74
     },
     {
       "category_code": "040028",
       "category_name": "1회용 관절 봉합용 NEEDLE(분리형)",
       "sheet_name": "040028_1회용 관절 봉합용 NEEDLE(분리형)",
       "duplicates_removed": 0,
-      "row_count": 72
+      "row_count": 74
     },
     {
       "category_code": "900129",
       "category_name": "척추경막외 유착방지제",
       "sheet_name": "900129_척추경막외 유착방지제",
       "duplicates_removed": 0,
-      "row_count": 72
+      "row_count": 74
     }
   ],
   "all_categories": {
-    "row_count": 554
+    "row_count": 570
   },
   "duplicates_removed": 0,
   "summary_workbook_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/master/hira_material_summary.xlsx"

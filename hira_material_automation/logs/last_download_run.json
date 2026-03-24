@@ -1,73 +1,77 @@
 {
-  "mode": "range",
+  "mode": "rolling",
   "periods": [
-    "2023-01~2025-12"
+    "2026-01~2026-03"
   ],
   "processed": 12,
   "failure_count": 0,
   "failures": [],
+  "deleted_outputs": {
+    "deleted_raw_files": [],
+    "deleted_monthly_files": []
+  },
   "master_report": {
-    "generated_at": "2026-03-17T02:47:31+09:00",
+    "generated_at": "2026-03-25T07:13:23+09:00",
     "category_reports": [
       {
         "category_code": "250099",
         "category_name": "관절경 수술시 사용하는 활액 임시대체재",
         "sheet_name": "250099_관절경 수술시 사용하는 활액 임시대체재",
         "duplicates_removed": 0,
-        "row_count": 50
+        "row_count": 52
       },
       {
         "category_code": "040021",
         "category_name": "ALL SUTURE ANCHOR",
         "sheet_name": "040021_ALL SUTURE ANCHOR",
         "duplicates_removed": 0,
-        "row_count": 72
+        "row_count": 74
       },
       {
         "category_code": "040019",
         "category_name": "비금속성 ANCHOR",
         "sheet_name": "040019_비금속성 ANCHOR",
         "duplicates_removed": 0,
-        "row_count": 72
+        "row_count": 74
       },
       {
         "category_code": "041001",
         "category_name": "관절경 CANNULA",
         "sheet_name": "041001_관절경 CANNULA",
         "duplicates_removed": 0,
-        "row_count": 72
+        "row_count": 74
       },
       {
         "category_code": "040023",
         "category_name": "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
         "sheet_name": "040023_십자인대고정용 일차 고정재 - SCREW,B",
         "duplicates_removed": 0,
-        "row_count": 72
+        "row_count": 74
       },
       {
         "category_code": "040012",
         "category_name": "십자인대고정용-INTERFERENCE SCREW(흡수성)",
         "sheet_name": "040012_십자인대고정용-INTERFERENCE SCR",
         "duplicates_removed": 0,
-        "row_count": 72
+        "row_count": 74
       },
       {
         "category_code": "040028",
         "category_name": "1회용 관절 봉합용 NEEDLE(분리형)",
         "sheet_name": "040028_1회용 관절 봉합용 NEEDLE(분리형)",
         "duplicates_removed": 0,
-        "row_count": 72
+        "row_count": 74
       },
       {
         "category_code": "900129",
         "category_name": "척추경막외 유착방지제",
         "sheet_name": "900129_척추경막외 유착방지제",
         "duplicates_removed": 0,
-        "row_count": 72
+        "row_count": 74
       }
     ],
     "all_categories": {
-      "row_count": 554
+      "row_count": 570
     },
     "duplicates_removed": 0,
     "summary_workbook_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/master/hira_material_summary.xlsx"
@@ -76,9 +80,9 @@
     {
       "category_code": "250099",
       "category_name": "관절경 수술시 사용하는 활액 임시대체재",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__temporary_synovial_substitute__250099.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__temporary_synovial_substitute__250099__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__temporary_synovial_substitute__250099.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__temporary_synovial_substitute__250099__normalized.csv",
       "action": "new",
       "table_preview": [
         [
@@ -98,93 +102,39 @@
           "청구금액"
         ],
         [
-          "2025년 12월",
+          "2026년 02월",
           "250099",
           "관절경 수술시 사용하는 활액 임시대체재",
-          "8,110",
-          "818,552,533",
-          "287",
-          "27,210,178"
+          "7,784",
+          "777,140,465",
+          "288",
+          "27,635,368"
         ],
         [
-          "2025년 11월",
+          "2026년 01월",
           "250099",
           "관절경 수술시 사용하는 활액 임시대체재",
-          "6,293",
-          "653,806,516",
-          "211",
-          "22,017,820"
-        ],
-        [
-          "2025년 10월",
-          "250099",
-          "관절경 수술시 사용하는 활액 임시대체재",
-          "8,110",
-          "860,013,187",
-          "304",
-          "30,287,148"
-        ],
-        [
-          "2025년 09월",
-          "250099",
-          "관절경 수술시 사용하는 활액 임시대체재",
-          "8,559",
-          "895,207,404",
-          "290",
-          "28,631,736"
-        ],
-        [
-          "2025년 08월",
-          "250099",
-          "관절경 수술시 사용하는 활액 임시대체재",
-          "7,687",
-          "815,389,673",
-          "247",
-          "24,733,216"
-        ],
-        [
-          "2025년 07월",
-          "250099",
-          "관절경 수술시 사용하는 활액 임시대체재",
-          "9,102",
-          "950,651,290",
-          "317",
-          "31,210,813"
-        ],
-        [
-          "2025년 06월",
-          "250099",
-          "관절경 수술시 사용하는 활액 임시대체재",
-          "7,579",
-          "786,943,705",
-          "316",
-          "30,957,969"
-        ],
-        [
-          "2025년 05월",
-          "250099",
-          "관절경 수술시 사용하는 활액 임시대체재",
-          "7,727",
-          "807,582,788",
-          "275",
-          "27,959,759"
+          "7,662",
+          "757,515,270",
+          "284",
+          "25,318,464"
         ]
       ],
       "no_data": false,
       "attempts": 1,
       "raw_changed": true,
-      "raw_hash": "761e0d75c512a8d2de21e6daf3aeddaf3cf2fd0b2aee3b6bfa9cd5515c13f1f0",
+      "raw_hash": "94fd76b8f2b11686c7543b4d83cba1bcfecbd8941f01a4580d14bcb443fff272",
       "previous_raw_hash": "",
       "normalized": {
-        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__temporary_synovial_substitute__250099.xlsx",
-        "processed_at": "2026-03-16T17:16:57",
-        "sha256": "761e0d75c512a8d2de21e6daf3aeddaf3cf2fd0b2aee3b6bfa9cd5515c13f1f0",
+        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__temporary_synovial_substitute__250099.xlsx",
+        "processed_at": "2026-03-24T21:42:47",
+        "sha256": "94fd76b8f2b11686c7543b4d83cba1bcfecbd8941f01a4580d14bcb443fff272",
         "source_kind": "xlsx",
-        "row_count": 36,
+        "row_count": 2,
         "column_count": 7,
         "matched_keywords": 2,
-        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__temporary_synovial_substitute__250099__normalized.csv",
-        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__temporary_synovial_substitute__250099__normalized.xlsx",
+        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__temporary_synovial_substitute__250099__normalized.csv",
+        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__temporary_synovial_substitute__250099__normalized.xlsx",
         "headers": [
           "기간",
           "중분류코드",
@@ -195,23 +145,23 @@
           "의료급여 | 청구금액"
         ],
         "preview_row": [
-          "2025년 12월",
+          "2026년 02월",
           "250099",
           "관절경 수술시 사용하는 활액 임시대체재",
-          "8110",
-          "818552533",
-          "287",
-          "27210178"
+          "7784",
+          "777140465",
+          "288",
+          "27635368"
         ]
       },
-      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__temporary_synovial_substitute__250099__normalized.xlsx"
+      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__temporary_synovial_substitute__250099__normalized.xlsx"
     },
     {
       "category_code": "040021",
       "category_name": "ALL SUTURE ANCHOR",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__all_suture_anchor__040021.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__all_suture_anchor__040021__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__all_suture_anchor__040021.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__all_suture_anchor__040021__normalized.csv",
       "action": "new",
       "table_preview": [
         [
@@ -231,93 +181,39 @@
           "청구금액"
         ],
         [
-          "2025년 12월",
+          "2026년 02월",
           "040021",
           "ALL SUTURE ANCHOR",
-          "8,503",
-          "1,689,673,778",
-          "269",
-          "53,096,651"
+          "8,336",
+          "1,662,208,875",
+          "289",
+          "57,285,510"
         ],
         [
-          "2025년 11월",
+          "2026년 01월",
           "040021",
           "ALL SUTURE ANCHOR",
-          "6,633",
-          "1,319,643,988",
-          "211",
-          "41,734,981"
-        ],
-        [
-          "2025년 10월",
-          "040021",
-          "ALL SUTURE ANCHOR",
-          "7,953",
-          "1,581,648,929",
-          "239",
-          "47,055,022"
-        ],
-        [
-          "2025년 09월",
-          "040021",
-          "ALL SUTURE ANCHOR",
-          "8,316",
-          "1,651,548,460",
-          "219",
-          "42,974,423"
-        ],
-        [
-          "2025년 08월",
-          "040021",
-          "ALL SUTURE ANCHOR",
-          "6,949",
-          "1,380,512,301",
-          "256",
-          "50,853,342"
-        ],
-        [
-          "2025년 07월",
-          "040021",
-          "ALL SUTURE ANCHOR",
-          "8,726",
-          "1,728,748,899",
-          "276",
-          "54,072,243"
-        ],
-        [
-          "2025년 06월",
-          "040021",
-          "ALL SUTURE ANCHOR",
-          "7,486",
-          "1,481,972,576",
-          "236",
-          "46,052,057"
-        ],
-        [
-          "2025년 05월",
-          "040021",
-          "ALL SUTURE ANCHOR",
-          "7,585",
-          "1,500,616,683",
-          "260",
-          "51,225,054"
+          "8,789",
+          "1,751,250,669",
+          "313",
+          "61,530,298"
         ]
       ],
       "no_data": false,
       "attempts": 1,
       "raw_changed": true,
-      "raw_hash": "bb371d176945af45493cb73f32d62f52721ae25c2565d562f25176edcdfd5c6d",
+      "raw_hash": "690bd529a6451caa910b685096469402c52081d1c32fa8e19754534cb588ba3c",
       "previous_raw_hash": "",
       "normalized": {
-        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__all_suture_anchor__040021.xlsx",
-        "processed_at": "2026-03-16T17:17:05",
-        "sha256": "bb371d176945af45493cb73f32d62f52721ae25c2565d562f25176edcdfd5c6d",
+        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__all_suture_anchor__040021.xlsx",
+        "processed_at": "2026-03-24T21:42:55",
+        "sha256": "690bd529a6451caa910b685096469402c52081d1c32fa8e19754534cb588ba3c",
         "source_kind": "xlsx",
-        "row_count": 36,
+        "row_count": 2,
         "column_count": 7,
         "matched_keywords": 2,
-        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__all_suture_anchor__040021__normalized.csv",
-        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__all_suture_anchor__040021__normalized.xlsx",
+        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__all_suture_anchor__040021__normalized.csv",
+        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__all_suture_anchor__040021__normalized.xlsx",
         "headers": [
           "기간",
           "중분류코드",
@@ -328,23 +224,23 @@
           "의료급여 | 청구금액"
         ],
         "preview_row": [
-          "2025년 12월",
+          "2026년 02월",
           "040021",
           "ALL SUTURE ANCHOR",
-          "8503",
-          "1689673778",
-          "269",
-          "53096651"
+          "8336",
+          "1662208875",
+          "289",
+          "57285510"
         ]
       },
-      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__all_suture_anchor__040021__normalized.xlsx"
+      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__all_suture_anchor__040021__normalized.xlsx"
     },
     {
       "category_code": "040019",
       "category_name": "비금속성 ANCHOR",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__nonmetal_anchor__040019.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__nonmetal_anchor__040019__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__nonmetal_anchor__040019.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__nonmetal_anchor__040019__normalized.csv",
       "action": "new",
       "table_preview": [
         [
@@ -364,93 +260,39 @@
           "청구금액"
         ],
         [
-          "2025년 12월",
+          "2026년 02월",
           "040019",
           "비금속성 ANCHOR",
-          "24,299",
-          "5,374,454,616",
-          "925",
-          "203,103,819"
+          "25,055",
+          "5,551,739,292",
+          "844",
+          "185,987,005"
         ],
         [
-          "2025년 11월",
+          "2026년 01월",
           "040019",
           "비금속성 ANCHOR",
-          "17,753",
-          "3,924,791,451",
-          "646",
-          "142,538,738"
-        ],
-        [
-          "2025년 10월",
-          "040019",
-          "비금속성 ANCHOR",
-          "22,244",
-          "4,928,349,756",
-          "929",
-          "203,133,950"
-        ],
-        [
-          "2025년 09월",
-          "040019",
-          "비금속성 ANCHOR",
-          "24,286",
-          "5,369,965,435",
-          "879",
-          "192,852,914"
-        ],
-        [
-          "2025년 08월",
-          "040019",
-          "비금속성 ANCHOR",
-          "21,621",
-          "4,784,800,213",
-          "747",
-          "163,770,124"
-        ],
-        [
-          "2025년 07월",
-          "040019",
-          "비금속성 ANCHOR",
-          "25,222",
-          "5,571,350,533",
-          "956",
-          "209,606,971"
-        ],
-        [
-          "2025년 06월",
-          "040019",
-          "비금속성 ANCHOR",
-          "22,401",
-          "4,951,761,266",
-          "884",
-          "193,981,358"
-        ],
-        [
-          "2025년 05월",
-          "040019",
-          "비금속성 ANCHOR",
-          "23,463",
-          "5,154,780,731",
-          "958",
-          "208,946,317"
+          "25,458",
+          "5,640,311,240",
+          "1,021",
+          "224,685,140"
         ]
       ],
       "no_data": false,
       "attempts": 1,
       "raw_changed": true,
-      "raw_hash": "9f414be73e150ad98376e941e5b2383401d5ffa537eea37c37864bb6511c58dc",
+      "raw_hash": "139dbff6c2ce7f00789805cfbcc02c2238b544eb4c9235f27ed2a3a6a116997b",
       "previous_raw_hash": "",
       "normalized": {
-        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__nonmetal_anchor__040019.xlsx",
-        "processed_at": "2026-03-16T17:17:14",
-        "sha256": "9f414be73e150ad98376e941e5b2383401d5ffa537eea37c37864bb6511c58dc",
+        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__nonmetal_anchor__040019.xlsx",
+        "processed_at": "2026-03-24T21:43:02",
+        "sha256": "139dbff6c2ce7f00789805cfbcc02c2238b544eb4c9235f27ed2a3a6a116997b",
         "source_kind": "xlsx",
-        "row_count": 36,
+        "row_count": 2,
         "column_count": 7,
         "matched_keywords": 2,
-        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__nonmetal_anchor__040019__normalized.csv",
-        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__nonmetal_anchor__040019__normalized.xlsx",
+        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__nonmetal_anchor__040019__normalized.csv",
+        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__nonmetal_anchor__040019__normalized.xlsx",
         "headers": [
           "기간",
           "중분류코드",
@@ -461,23 +303,23 @@
           "의료급여 | 청구금액"
         ],
         "preview_row": [
-          "2025년 12월",
+          "2026년 02월",
           "040019",
           "비금속성 ANCHOR",
-          "24299",
-          "5374454616",
-          "925",
-          "203103819"
+          "25055",
+          "5551739292",
+          "844",
+          "185987005"
         ]
       },
-      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__nonmetal_anchor__040019__normalized.xlsx"
+      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__nonmetal_anchor__040019__normalized.xlsx"
     },
     {
       "category_code": "041001",
       "category_name": "관절경 CANNULA",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__arthroscopy_cannula__041001.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__arthroscopy_cannula__041001__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__arthroscopy_cannula__041001.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__arthroscopy_cannula__041001__normalized.csv",
       "action": "new",
       "table_preview": [
         [
@@ -497,93 +339,39 @@
           "청구금액"
         ],
         [
-          "2025년 12월",
+          "2026년 02월",
           "041001",
           "관절경 CANNULA",
-          "21,770",
-          "968,166,659",
-          "769",
-          "34,202,986"
+          "22,600",
+          "1,005,524,969",
+          "866",
+          "38,507,616"
         ],
         [
-          "2025년 11월",
+          "2026년 01월",
           "041001",
           "관절경 CANNULA",
-          "15,733",
-          "699,705,298",
-          "564",
-          "25,079,171"
-        ],
-        [
-          "2025년 10월",
-          "041001",
-          "관절경 CANNULA",
-          "19,832",
-          "882,315,249",
-          "803",
-          "35,660,601"
-        ],
-        [
-          "2025년 09월",
-          "041001",
-          "관절경 CANNULA",
-          "21,686",
-          "964,039,823",
-          "670",
-          "29,765,029"
-        ],
-        [
-          "2025년 08월",
-          "041001",
-          "관절경 CANNULA",
-          "18,765",
-          "834,199,760",
-          "597",
-          "26,518,218"
-        ],
-        [
-          "2025년 07월",
-          "041001",
-          "관절경 CANNULA",
-          "22,341",
-          "991,695,993",
-          "834",
-          "36,951,899"
-        ],
-        [
-          "2025년 06월",
-          "041001",
-          "관절경 CANNULA",
-          "19,569",
-          "867,997,237",
-          "800",
-          "35,417,035"
-        ],
-        [
-          "2025년 05월",
-          "041001",
-          "관절경 CANNULA",
-          "20,046",
-          "886,215,124",
-          "717",
-          "31,610,355"
+          "22,435",
+          "997,974,477",
+          "819",
+          "36,394,380"
         ]
       ],
       "no_data": false,
       "attempts": 1,
       "raw_changed": true,
-      "raw_hash": "893a19393f3a3ad5490db2b800ce6bab6feeb24ec6106abffbeff700ea5f5ae2",
+      "raw_hash": "93e1e145d62a3cbec23cb275ea4e3a7418ffa3fae0786ee42a27595d1bbdd2be",
       "previous_raw_hash": "",
       "normalized": {
-        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__arthroscopy_cannula__041001.xlsx",
-        "processed_at": "2026-03-16T17:17:22",
-        "sha256": "893a19393f3a3ad5490db2b800ce6bab6feeb24ec6106abffbeff700ea5f5ae2",
+        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__arthroscopy_cannula__041001.xlsx",
+        "processed_at": "2026-03-24T21:43:10",
+        "sha256": "93e1e145d62a3cbec23cb275ea4e3a7418ffa3fae0786ee42a27595d1bbdd2be",
         "source_kind": "xlsx",
-        "row_count": 36,
+        "row_count": 2,
         "column_count": 7,
         "matched_keywords": 2,
-        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__arthroscopy_cannula__041001__normalized.csv",
-        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__arthroscopy_cannula__041001__normalized.xlsx",
+        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__arthroscopy_cannula__041001__normalized.csv",
+        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__arthroscopy_cannula__041001__normalized.xlsx",
         "headers": [
           "기간",
           "중분류코드",
@@ -594,23 +382,23 @@
           "의료급여 | 청구금액"
         ],
         "preview_row": [
-          "2025년 12월",
+          "2026년 02월",
           "041001",
           "관절경 CANNULA",
-          "21770",
-          "968166659",
-          "769",
-          "34202986"
+          "22600",
+          "1005524969",
+          "866",
+          "38507616"
         ]
       },
-      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__arthroscopy_cannula__041001__normalized.xlsx"
+      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__arthroscopy_cannula__041001__normalized.xlsx"
     },
     {
       "category_code": "040023",
       "category_name": "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__acl_primary_fixation_metal__040023.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__acl_primary_fixation_metal__040023__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__acl_primary_fixation_metal__040023.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__acl_primary_fixation_metal__040023__normalized.csv",
       "action": "new",
       "table_preview": [
         [
@@ -630,93 +418,39 @@
           "청구금액"
         ],
         [
-          "2025년 12월",
+          "2026년 02월",
           "040023",
           "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
-          "1,361",
-          "247,083,933",
-          "20",
-          "3,633,300"
+          "1,081",
+          "195,959,422",
+          "16",
+          "2,899,050"
         ],
         [
-          "2025년 11월",
-          "040023",
-          "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
-          "1,029",
-          "185,938,050",
-          "19",
-          "3,440,192"
-        ],
-        [
-          "2025년 10월",
+          "2026년 01월",
           "040023",
           "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
           "1,155",
-          "209,536,579",
-          "28",
-          "5,041,175"
-        ],
-        [
-          "2025년 09월",
-          "040023",
-          "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
-          "1,245",
-          "225,955,860",
-          "28",
-          "5,060,890"
-        ],
-        [
-          "2025년 08월",
-          "040023",
-          "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
-          "1,200",
-          "216,988,924",
-          "14",
-          "2,521,720"
-        ],
-        [
-          "2025년 07월",
-          "040023",
-          "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
-          "1,501",
-          "271,339,238",
-          "32",
-          "5,667,518"
-        ],
-        [
-          "2025년 06월",
-          "040023",
-          "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
-          "1,211",
-          "218,793,040",
-          "21",
-          "3,829,030"
-        ],
-        [
-          "2025년 05월",
-          "040023",
-          "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
-          "1,224",
-          "220,115,263",
-          "22",
-          "3,976,098"
+          "209,329,741",
+          "25",
+          "4,587,000"
         ]
       ],
       "no_data": false,
       "attempts": 1,
       "raw_changed": true,
-      "raw_hash": "95ac8f2fb934b3c5898c5e66ac7719a019d265125f3eb206368d032a7a880e5a",
+      "raw_hash": "4dec0fa2f016d98f9f1ed6aa386fb9e2bccc2163ee3036a6db11cf5b66fee2ac",
       "previous_raw_hash": "",
       "normalized": {
-        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__acl_primary_fixation_metal__040023.xlsx",
-        "processed_at": "2026-03-16T17:17:29",
-        "sha256": "95ac8f2fb934b3c5898c5e66ac7719a019d265125f3eb206368d032a7a880e5a",
+        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__acl_primary_fixation_metal__040023.xlsx",
+        "processed_at": "2026-03-24T21:43:18",
+        "sha256": "4dec0fa2f016d98f9f1ed6aa386fb9e2bccc2163ee3036a6db11cf5b66fee2ac",
         "source_kind": "xlsx",
-        "row_count": 36,
+        "row_count": 2,
         "column_count": 7,
         "matched_keywords": 2,
-        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__acl_primary_fixation_metal__040023__normalized.csv",
-        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__acl_primary_fixation_metal__040023__normalized.xlsx",
+        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__acl_primary_fixation_metal__040023__normalized.csv",
+        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__acl_primary_fixation_metal__040023__normalized.xlsx",
         "headers": [
           "기간",
           "중분류코드",
@@ -727,23 +461,23 @@
           "의료급여 | 청구금액"
         ],
         "preview_row": [
-          "2025년 12월",
+          "2026년 02월",
           "040023",
           "십자인대고정용 일차 고정재 - SCREW,BUTTON 등(금속류)",
-          "1361",
-          "247083933",
-          "20",
-          "3633300"
+          "1081",
+          "195959422",
+          "16",
+          "2899050"
         ]
       },
-      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__acl_primary_fixation_metal__040023__normalized.xlsx"
+      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__acl_primary_fixation_metal__040023__normalized.xlsx"
     },
     {
       "category_code": "040012",
       "category_name": "십자인대고정용-INTERFERENCE SCREW(흡수성)",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__acl_interference_screw_absorbable__040012.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__acl_interference_screw_absorbable__040012__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__acl_interference_screw_absorbable__040012.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__acl_interference_screw_absorbable__040012__normalized.csv",
       "action": "new",
       "table_preview": [
         [
@@ -763,93 +497,39 @@
           "청구금액"
         ],
         [
-          "2025년 12월",
+          "2026년 02월",
           "040012",
           "십자인대고정용-INTERFERENCE SCREW(흡수성)",
-          "1,698",
-          "171,698,762",
-          "34",
-          "3,440,640"
+          "1,307",
+          "131,549,278",
+          "19",
+          "1,884,160"
         ],
         [
-          "2025년 11월",
+          "2026년 01월",
           "040012",
           "십자인대고정용-INTERFERENCE SCREW(흡수성)",
-          "1,231",
-          "123,941,606",
-          "32",
-          "3,267,580"
-        ],
-        [
-          "2025년 10월",
-          "040012",
-          "십자인대고정용-INTERFERENCE SCREW(흡수성)",
-          "1,433",
-          "144,954,958",
-          "32",
-          "3,222,882"
-        ],
-        [
-          "2025년 09월",
-          "040012",
-          "십자인대고정용-INTERFERENCE SCREW(흡수성)",
-          "1,555",
-          "157,290,215",
-          "28",
-          "2,779,490"
-        ],
-        [
-          "2025년 08월",
-          "040012",
-          "십자인대고정용-INTERFERENCE SCREW(흡수성)",
-          "1,418",
-          "142,722,845",
-          "24",
-          "2,392,300"
-        ],
-        [
-          "2025년 07월",
-          "040012",
-          "십자인대고정용-INTERFERENCE SCREW(흡수성)",
-          "1,749",
-          "175,938,941",
-          "32",
-          "3,138,295"
-        ],
-        [
-          "2025년 06월",
-          "040012",
-          "십자인대고정용-INTERFERENCE SCREW(흡수성)",
-          "1,661",
-          "167,497,469",
-          "20",
-          "2,030,630"
-        ],
-        [
-          "2025년 05월",
-          "040012",
-          "십자인대고정용-INTERFERENCE SCREW(흡수성)",
-          "1,534",
-          "153,995,848",
-          "33",
-          "3,301,570"
+          "1,483",
+          "149,920,252",
+          "27",
+          "2,729,065"
         ]
       ],
       "no_data": false,
       "attempts": 1,
       "raw_changed": true,
-      "raw_hash": "a6c85b5eb8b4f5e2a922872164dfeb6dd1aef3c6d17608ccc39ea7b779edb658",
+      "raw_hash": "29217139c383a7a5483786475fe2a847a0fe9708cd01adee586c9ad848e4496f",
       "previous_raw_hash": "",
       "normalized": {
-        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__acl_interference_screw_absorbable__040012.xlsx",
-        "processed_at": "2026-03-16T17:17:37",
-        "sha256": "a6c85b5eb8b4f5e2a922872164dfeb6dd1aef3c6d17608ccc39ea7b779edb658",
+        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__acl_interference_screw_absorbable__040012.xlsx",
+        "processed_at": "2026-03-24T21:43:26",
+        "sha256": "29217139c383a7a5483786475fe2a847a0fe9708cd01adee586c9ad848e4496f",
         "source_kind": "xlsx",
-        "row_count": 36,
+        "row_count": 2,
         "column_count": 7,
         "matched_keywords": 2,
-        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__acl_interference_screw_absorbable__040012__normalized.csv",
-        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__acl_interference_screw_absorbable__040012__normalized.xlsx",
+        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__acl_interference_screw_absorbable__040012__normalized.csv",
+        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__acl_interference_screw_absorbable__040012__normalized.xlsx",
         "headers": [
           "기간",
           "중분류코드",
@@ -860,23 +540,23 @@
           "의료급여 | 청구금액"
         ],
         "preview_row": [
-          "2025년 12월",
+          "2026년 02월",
           "040012",
           "십자인대고정용-INTERFERENCE SCREW(흡수성)",
-          "1698",
-          "171698762",
-          "34",
-          "3440640"
+          "1307",
+          "131549278",
+          "19",
+          "1884160"
         ]
       },
-      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__acl_interference_screw_absorbable__040012__normalized.xlsx"
+      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__acl_interference_screw_absorbable__040012__normalized.xlsx"
     },
     {
       "category_code": "040028",
       "category_name": "1회용 관절 봉합용 NEEDLE(분리형)",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__arthroscopy_suture_needle_detachable__040028.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__arthroscopy_suture_needle_detachable__040028__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__arthroscopy_suture_needle_detachable__040028.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__arthroscopy_suture_needle_detachable__040028__normalized.csv",
       "action": "new",
       "table_preview": [
         [
@@ -896,93 +576,39 @@
           "청구금액"
         ],
         [
-          "2025년 12월",
+          "2026년 02월",
           "040028",
           "1회용 관절 봉합용 NEEDLE(분리형)",
-          "4,463",
-          "376,611,452",
-          "148",
-          "12,452,825"
+          "4,479",
+          "379,096,005",
+          "164",
+          "13,759,852"
         ],
         [
-          "2025년 11월",
+          "2026년 01월",
           "040028",
           "1회용 관절 봉합용 NEEDLE(분리형)",
-          "3,089",
-          "260,302,321",
-          "125",
-          "10,509,087"
-        ],
-        [
-          "2025년 10월",
-          "040028",
-          "1회용 관절 봉합용 NEEDLE(분리형)",
-          "4,013",
-          "339,360,970",
-          "162",
-          "13,444,698"
-        ],
-        [
-          "2025년 09월",
-          "040028",
-          "1회용 관절 봉합용 NEEDLE(분리형)",
-          "4,442",
-          "375,107,179",
-          "142",
-          "11,823,815"
-        ],
-        [
-          "2025년 08월",
-          "040028",
-          "1회용 관절 봉합용 NEEDLE(분리형)",
-          "3,836",
-          "323,799,205",
-          "137",
-          "11,422,340"
-        ],
-        [
-          "2025년 07월",
-          "040028",
-          "1회용 관절 봉합용 NEEDLE(분리형)",
-          "4,530",
-          "381,273,927",
-          "170",
-          "14,197,439"
-        ],
-        [
-          "2025년 06월",
-          "040028",
-          "1회용 관절 봉합용 NEEDLE(분리형)",
-          "3,858",
-          "324,822,015",
-          "154",
-          "12,857,293"
-        ],
-        [
-          "2025년 05월",
-          "040028",
-          "1회용 관절 봉합용 NEEDLE(분리형)",
-          "4,109",
-          "344,427,421",
-          "167",
-          "13,894,418"
+          "4,556",
+          "385,136,883",
+          "180",
+          "15,045,899"
         ]
       ],
       "no_data": false,
       "attempts": 1,
       "raw_changed": true,
-      "raw_hash": "f884f5a598e59463e45d067d8846fbfc1a379f24e1208c306bc929204b597f3f",
+      "raw_hash": "7c45a3567d3facc0cbac5dbfe4a193549d0f1fae53f3cbfcaefa5fc62bc6e8e5",
       "previous_raw_hash": "",
       "normalized": {
-        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__arthroscopy_suture_needle_detachable__040028.xlsx",
-        "processed_at": "2026-03-16T17:17:45",
-        "sha256": "f884f5a598e59463e45d067d8846fbfc1a379f24e1208c306bc929204b597f3f",
+        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__arthroscopy_suture_needle_detachable__040028.xlsx",
+        "processed_at": "2026-03-24T21:43:33",
+        "sha256": "7c45a3567d3facc0cbac5dbfe4a193549d0f1fae53f3cbfcaefa5fc62bc6e8e5",
         "source_kind": "xlsx",
-        "row_count": 36,
+        "row_count": 2,
         "column_count": 7,
         "matched_keywords": 2,
-        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__arthroscopy_suture_needle_detachable__040028__normalized.csv",
-        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__arthroscopy_suture_needle_detachable__040028__normalized.xlsx",
+        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__arthroscopy_suture_needle_detachable__040028__normalized.csv",
+        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__arthroscopy_suture_needle_detachable__040028__normalized.xlsx",
         "headers": [
           "기간",
           "중분류코드",
@@ -993,23 +619,23 @@
           "의료급여 | 청구금액"
         ],
         "preview_row": [
-          "2025년 12월",
+          "2026년 02월",
           "040028",
           "1회용 관절 봉합용 NEEDLE(분리형)",
-          "4463",
-          "376611452",
-          "148",
-          "12452825"
+          "4479",
+          "379096005",
+          "164",
+          "13759852"
         ]
       },
-      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__arthroscopy_suture_needle_detachable__040028__normalized.xlsx"
+      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__arthroscopy_suture_needle_detachable__040028__normalized.xlsx"
     },
     {
       "category_code": "040017",
       "category_name": "반월상연골봉합술용-DOUBLE ARM",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__meniscus_double_arm__040017.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__meniscus_double_arm__040017__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__meniscus_double_arm__040017.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__meniscus_double_arm__040017__normalized.csv",
       "action": "query_timeout",
       "table_preview": [],
       "no_data": false,
@@ -1019,9 +645,9 @@
     {
       "category_code": "040029",
       "category_name": "1회용 관절 봉합용 NEEDLE(일체형)",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__arthroscopy_suture_needle_integrated__040029.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__arthroscopy_suture_needle_integrated__040029__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__arthroscopy_suture_needle_integrated__040029.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__arthroscopy_suture_needle_integrated__040029__normalized.csv",
       "action": "query_timeout",
       "table_preview": [],
       "no_data": false,
@@ -1031,9 +657,9 @@
     {
       "category_code": "040026",
       "category_name": "반월상연골봉합술용-SCREW,ANCHOR",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__meniscus_screw_anchor__040026.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__meniscus_screw_anchor__040026__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__meniscus_screw_anchor__040026.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__meniscus_screw_anchor__040026__normalized.csv",
       "action": "query_timeout",
       "table_preview": [],
       "no_data": false,
@@ -1043,9 +669,9 @@
     {
       "category_code": "900086",
       "category_name": "연조직 재건용",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__soft_tissue_reconstruction__900086.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__soft_tissue_reconstruction__900086__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__soft_tissue_reconstruction__900086.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__soft_tissue_reconstruction__900086__normalized.csv",
       "action": "query_timeout",
       "table_preview": [],
       "no_data": false,
@@ -1055,9 +681,9 @@
     {
       "category_code": "900129",
       "category_name": "척추경막외 유착방지제",
-      "target_range": "2023-01~2025-12",
-      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__epidural_adhesion_barrier__900129.xlsx",
-      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__epidural_adhesion_barrier__900129__normalized.csv",
+      "target_range": "2026-01~2026-03",
+      "raw_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__epidural_adhesion_barrier__900129.xlsx",
+      "monthly_csv": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__epidural_adhesion_barrier__900129__normalized.csv",
       "action": "new",
       "table_preview": [
         [
@@ -1077,94 +703,40 @@
           "청구금액"
         ],
         [
-          "2025년 12월",
+          "2026년 02월",
           "900129",
           "척추경막외 유착방지제",
-          "1,158",
-          "500,739,689",
-          "34",
-          "20,589,930"
-        ],
-        [
-          "2025년 11월",
-          "900129",
-          "척추경막외 유착방지제",
-          "730",
-          "310,905,352",
-          "30",
-          "15,888,720"
-        ],
-        [
-          "2025년 10월",
-          "900129",
-          "척추경막외 유착방지제",
-          "1,117",
-          "464,009,826",
-          "46",
-          "22,263,720"
-        ],
-        [
-          "2025년 09월",
-          "900129",
-          "척추경막외 유착방지제",
-          "846",
-          "358,271,525",
-          "38",
-          "20,838,210"
-        ],
-        [
-          "2025년 08월",
-          "900129",
-          "척추경막외 유착방지제",
-          "827",
-          "360,210,844",
+          "992",
+          "406,151,675",
           "54",
-          "26,434,960"
+          "25,897,494"
         ],
         [
-          "2025년 07월",
+          "2026년 01월",
           "900129",
           "척추경막외 유착방지제",
-          "1,000",
-          "417,337,397",
-          "53",
-          "25,684,830"
-        ],
-        [
-          "2025년 06월",
-          "900129",
-          "척추경막외 유착방지제",
-          "700",
-          "295,468,907",
-          "53",
-          "25,158,830"
-        ],
-        [
-          "2025년 05월",
-          "900129",
-          "척추경막외 유착방지제",
-          "679",
-          "285,494,751",
-          "23",
-          "12,556,510"
+          "890",
+          "394,337,850",
+          "55",
+          "30,442,160"
         ]
       ],
       "no_data": false,
       "attempts": 3,
       "warning": "The HIRA page query timed out.",
       "raw_changed": true,
-      "raw_hash": "917cb37d266bc9954ad1b25be71493a1a7c9eed0c9a4042ac380449d1727c25b",
+      "raw_hash": "262c7cf8d431d24f55b5160ae1d6551599be1053ee421388410d41e74bb914ed",
       "previous_raw_hash": "",
       "normalized": {
-        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202301_202512__epidural_adhesion_barrier__900129.xlsx",
-        "processed_at": "2026-03-16T17:47:29",
-        "sha256": "917cb37d266bc9954ad1b25be71493a1a7c9eed0c9a4042ac380449d1727c25b",
+        "source_file": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/raw/202601_202603__epidural_adhesion_barrier__900129.xlsx",
+        "processed_at": "2026-03-24T22:13:21",
+        "sha256": "262c7cf8d431d24f55b5160ae1d6551599be1053ee421388410d41e74bb914ed",
         "source_kind": "xlsx",
-        "row_count": 36,
+        "row_count": 2,
         "column_count": 7,
         "matched_keywords": 2,
-        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__epidural_adhesion_barrier__900129__normalized.csv",
-        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__epidural_adhesion_barrier__900129__normalized.xlsx",
+        "csv_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__epidural_adhesion_barrier__900129__normalized.csv",
+        "xlsx_path": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__epidural_adhesion_barrier__900129__normalized.xlsx",
         "headers": [
           "기간",
           "중분류코드",
@@ -1175,16 +747,16 @@
           "의료급여 | 청구금액"
         ],
         "preview_row": [
-          "2025년 12월",
+          "2026년 02월",
           "900129",
           "척추경막외 유착방지제",
-          "1158",
-          "500739689",
-          "34",
-          "20589930"
+          "992",
+          "406151675",
+          "54",
+          "25897494"
         ]
       },
-      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202301_202512__epidural_adhesion_barrier__900129__normalized.xlsx"
+      "monthly_xlsx": "/home/runner/work/HIRA-update/HIRA-update/hira_material_automation/output/monthly/202601_202603__epidural_adhesion_barrier__900129__normalized.xlsx"
     }
   ]
 }
